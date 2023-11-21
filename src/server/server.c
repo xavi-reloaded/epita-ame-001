@@ -84,7 +84,7 @@ void inspectTheThing(void)
     config_destroy(cfg);
 }
 
-void communicate(int client_fd)
+void communicate(int client_fd, char *root_dir)
 {
     ssize_t bytes = 0;
     char buffer[BUFFER_SIZE];
@@ -99,8 +99,18 @@ void communicate(int client_fd)
         my_var[bytes] = '\0';
         
         fprintf(stdout, "Received message: \n%s", my_var);
+
+        // EMPIEZA LA FIESTA BUSCANDO EN ROOT DIR
+        // 1. no existe => (err(404))
+        // 2. si existe te paso el archivo (getFile(char *filename))
+        // 3. 
+
         respond(client_fd, my_var, strlen(my_var));
+
         free(my_var);
+
+        
+
 
     }
 
@@ -119,7 +129,7 @@ void communicate(int client_fd)
     
 }
 
-void start_server(int server_socket)
+void start_server(int server_socket, char *root_dir)
 {
     if (listen(server_socket, 10) == -1)
     {
@@ -132,7 +142,7 @@ void start_server(int server_socket)
         int client_fd = accept(server_socket, NULL, NULL);
         if (client_fd != -1)
         {
-            communicate(client_fd);
+            communicate(client_fd, root_dir);
         }
     }
 }

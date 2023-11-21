@@ -27,8 +27,8 @@ int main(int argc, char **argv)
         fprintf(stderr, "Create and bind failed: %s", strerror(errno));
         return 1;
     }
-
-    start_server(server_socket);
+    const char *root_dir = "patata";
+    start_server(server_socket, root_dir);
     
     close(server_socket);
     return 0;
