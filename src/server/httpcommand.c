@@ -33,7 +33,8 @@ struct httprequest *parse(char *str) {
 void tokenizer(char *command)
 {
     printf("FULL STRING IS [%s] \n", command);
-    parse(command);
-
+    struct httprequest *res = parse(command);
+    printf("q [%s] \n", res->command);
+    printf("w [%s] \n", res->argument);      
 }
 
