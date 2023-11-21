@@ -16,9 +16,11 @@ struct httprequest *parse(char *str) {
   if (*str) {
     *str++ = 0;
   }
-  printf("Command : %s\n", command);
+  
   char *argument = str;
+  printf("Command : %s\n", command);
   printf("Argument: %s \n", argument);
+  
 
   struct httprequest *res = malloc(sizeof(struct httprequest));
   res->command = command;
