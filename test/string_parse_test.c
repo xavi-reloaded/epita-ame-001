@@ -21,9 +21,9 @@ Test(get_piece, simple)
 Test(get_piece, one) 
 {
     // get_piece function should return desired position of string
-    char *str = "hello^pepito^you^are^nice";
-    const char *separator = "^";
-    size_t position = 3;
+    char *str = "hello pepito you are snice";
+    char *separator = " ";
+    size_t position = 1;
     char *expected = "you";
 
     char *actual = get_piece(str, separator, position);
