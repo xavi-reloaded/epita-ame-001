@@ -6,8 +6,7 @@
 #include "httpcommand.h"
 
 #define COMMAND_GET GET
-#define COMMAND_POST POST
-#define COMMAND_PUT PUT
+#define COMMAND_HEAD HEAD
 
 struct httprequest *parse(char *str) {
   static const char *separator = " \t"; 

@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "server.h"
+#include "httpcommand.h"
 
 
 #define BUFFER_SIZE 1024
@@ -84,11 +85,11 @@ void inspectTheThing(void)
     config_destroy(cfg);
 }
 
-void communicate(int client_fd, char *root_dir)
+void communicate(int client_fd, const char *root_dir)
 {
     ssize_t bytes = 0;
     char buffer[BUFFER_SIZE];
-
+    fprintf(stdout, "root: \n%s", root_dir);
     while ((bytes = recv(client_fd, buffer, BUFFER_SIZE, 0)) > 0)
     {
         char *my_var = malloc(sizeof(char) * (bytes + 1));
@@ -99,6 +100,9 @@ void communicate(int client_fd, char *root_dir)
         my_var[bytes] = '\0';
         
         fprintf(stdout, "Received message: \n%s", my_var);
+
+        struct httprequest *res = parse(my_var);
+        fprintf(stdout, "Received message: \n%s", res->command);
 
         // EMPIEZA LA FIESTA BUSCANDO EN ROOT DIR
         // 1. no existe => (err(404))
@@ -129,7 +133,7 @@ void communicate(int client_fd, char *root_dir)
     
 }
 
-void start_server(int server_socket, char *root_dir)
+void start_server(int server_socket, const char *root_dir)
 {
     if (listen(server_socket, 10) == -1)
     {
