@@ -73,12 +73,31 @@ void communicate(int client_fd)
 {
     ssize_t bytes = 0;
     char buffer[BUFFER_SIZE];
-
+    char *my_var = NULL;
     while ((bytes = recv(client_fd, buffer, BUFFER_SIZE, 0)) > 0)
     {
-        int int_bytes = bytes;
+        char *to_cat = malloc(sizeof(char) * (bytes + 1));
+        for (ssize_t i = 0; i < bytes; i++)
+        {
+            to_cat[i] = buffer[i];
+        }
+        to_cat[bytes] = '\0';
 
-        // here check_buffer
+        if (my_var == NULL)
+        {
+            my_var = malloc(sizeof(char) * (bytes + 1));
+            strcpy(my_var, to_cat);
+        }
+        else
+        {
+            my_var = realloc(my_var, strlen(my_var) + bytes + 1);
+            strcat(my_var, to_cat);
+        }
+        free(to_cat); 
+        fprintf(stdout, "Received message: \n%s", my_var);
+        respond(client_fd, my_var, strlen(my_var));
+    }
+    // here check_buffer
         /*
         if (is_word)
             fprintf(stdout, "Received message: \n%.*s", int_bytes, buffer);
@@ -88,8 +107,9 @@ void communicate(int client_fd)
             do_image(client_fd, buffer, bytes);
         else if .......
         */
-        respond(client_fd, buffer, bytes);
-    }
+    // fprintf(stdout, "Received message: \n%s", my_var);
+    // respond(client_fd, my_var, strlen(my_var));
+    free(my_var);
 }
 
 void start_server(int server_socket)
