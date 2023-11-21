@@ -1,8 +1,37 @@
 #define _GNU_SOURCE
 #define _PSIX_C_SOURCE 200809L
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "httpcommand.h"
 
-void parse(const char *command)
-{
-    fprintf(stdout, "Received message: \n%s", command);
+#define COMMAND_GET GET
+#define COMMAND_POST POST
+#define COMMAND_PUT PUT
+
+struct httprequest *parse(char *str) {
+  static const char *separator = " \t"; 
+  char *command = str;
+  str += strcspn(str, separator);
+  if (*str) {
+    *str++ = 0;
+  }
+  printf("Command : %s\n", command);
+  char *argument = str;
+  printf("Argument: %s \n", argument);
+
+  struct httprequest *res = malloc(sizeof(struct httprequest));
+  res->command = command;
+  res->argument = argument;
+
+  return res;
+  
 }
+
+void tokenizer(char *command)
+{
+    printf("FULL STRING IS [%s] \n", command);
+    parse(command);
+
+}
+

@@ -1,7 +1,14 @@
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef HTTPCOMMAND_H
+#define HTTPCOMMAND_H
 #include <stddef.h>
 
-void parse(const char *command);
+struct httprequest
+{
+    char *command;
+    char *argument;
+};
 
-#endif /* !SERVER_H */
+void tokenizer(char *command);
+struct httprequest *parse(char *str);
+
+#endif /* !HTTPCOMMAND_H */
