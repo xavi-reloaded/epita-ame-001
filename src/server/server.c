@@ -72,19 +72,6 @@ void respond(int client_fd, const char *buffer, size_t bytes)
     }
 }
 
-// prints de configuration
-void inspectTheThing(void)
-{
-    struct config *cfg = parse_configuration("../../server.config");
-    if (cfg == NULL)
-    {
-	    printf("invalid\n");
-	    return;
-    }
-    print_config(cfg);
-    config_destroy(cfg);
-}
-
 void communicate(int client_fd, const char *root_dir)
 {
     ssize_t bytes = 0;
