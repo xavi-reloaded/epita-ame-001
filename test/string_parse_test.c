@@ -1,47 +1,40 @@
 #include <criterion/criterion.h>
 #include "../src/http/http.h"
-/*
-Test(get_piece, simple) 
+
+Test(get_piece, separator_SP) 
 {
     // get_piece function should return desired position of string
-    char *str = "hello^^pepito^^you^^are^^nice";
-    const char *separator = "^^";
-    size_t position = 3;
-    char *expected = "you";
+    char str[] = "helloSPpepitoSPyouSPareSPnice";
+    char separator[] = "SP";
+    size_t position = 4;
+    char *expected = "are";
 
     char *actual = get_piece(str, separator, position);
 
-    cr_assert(actual != NULL, "Actual value is NULL");
-    cr_assert(expected != NULL, "Expected value is NULL");
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
 }
-*/
 
 
-Test(get_piece, one) 
+
+Test(get_piece, one_length_separator) 
 {
     // get_piece function should return desired position of string
     char str[] = "apple,orange,banana,grape";
     char separator[] = ",";
-    size_t position = 1;
-    char *expected = "you";
+    size_t position = 2;
+    char *expected = "orange";
 
     char *actual = get_piece(str, separator, position);
-    //cr_assert_eq(actual, expected);
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
 }
 
 
-
-/*
 Test(get_first_line_from_http_message, simple) 
 {
     // get_first_line function should return desired position of string
-    char *http_message = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    char http_message[] = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
     char *expected = "GETSP/hello.txtSPHTTP/1.1";
     char *actual = get_first_line_from_http_message(http_message);
 
-    cr_assert(actual != NULL, "Actual value is NULL");
-    cr_assert(expected != NULL, "Expected value is NULL");
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
-}*/
+}
