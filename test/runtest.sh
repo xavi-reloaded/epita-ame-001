@@ -7,14 +7,11 @@ case "${unameOut}" in
 esac
 
 
-# NOTE : Quote it else use array to avoid problems #
-FILES="*test.*"
-for f in $FILES
-do
-  echo "RUNNING TEST ${f}"
-  gcc -o test ${f} ${EXTRA_FLAGS} -lcriterion
+gcc -o test first_test.c ${EXTRA_FLAGS} -lcriterion
 ./test
-done
+
+gcc -o test string_parse_test.c ../src/http/http.c ${EXTRA_FLAGS} -lcriterion
+./test
 
 
 
