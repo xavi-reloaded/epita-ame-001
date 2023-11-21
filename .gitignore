@@ -1,8 +1,8 @@
-./src/config/*.a
-./src/utils/*.a
-./src/daemon/*.a
-./src/server/*.a
-./src/server/httpcommand
-./*.a
+src/config/*.a
+src/utils/*.a
+src/daemon/*.a
+src/server/*.a
+src/server/httpcommand
+*.a
 httpd
-./test/test
+test/test
