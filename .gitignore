@@ -1,0 +1,5 @@
+./src/config/*.a
+./src/utils/*.a
+./src/daemon/*.a
+./*.a
+httpd
