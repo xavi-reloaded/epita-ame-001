@@ -1,3 +1,6 @@
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
 #include "http.h"
 
 char *get_piece(char *str, const char *separator, size_t position)
@@ -16,7 +19,7 @@ char *get_piece(char *str, const char *separator, size_t position)
     return NULL;
 }
 
-char *get_first_line_from_http_message(const char *http_message)
+char *get_first_line_from_http_message(char *http_message)
 {
     return get_piece(http_message, "CRLF", 1);
 }
