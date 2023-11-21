@@ -72,7 +72,7 @@ void respond(int client_fd, const char *buffer, size_t bytes)
 }
 
 // prints de configuration
-void inspectTheThing()
+void inspectTheThing(void)
 {
     struct config *cfg = parse_configuration("../../server.config");
     if (cfg == NULL)
