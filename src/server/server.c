@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "server.h"
-#include "../config/config.h"
+
 
 #define BUFFER_SIZE 1024
 

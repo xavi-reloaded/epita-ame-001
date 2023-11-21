@@ -1,6 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 #include <stddef.h>
+#include "../config/config.h"
 
 int create_and_bind(const char *node, const char *service);
 

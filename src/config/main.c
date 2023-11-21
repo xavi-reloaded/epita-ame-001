@@ -37,7 +37,7 @@ void print_config(struct config *cfg)
     }
 }
 
-
+/*
 int main()
 {
     struct config *cfg = parse_configuration("test.txt");
@@ -50,3 +50,4 @@ int main()
     config_destroy(cfg);
     return 0;
 }
+*/

@@ -61,4 +61,8 @@ struct config *parse_configuration(const char *path);
 */
 void config_destroy(struct config *config);
 
+void print_server_config(struct server_config *server);
+
+void print_config(struct config *cfg);
+
 #endif /* !CONFIG_H */
