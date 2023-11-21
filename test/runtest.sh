@@ -1,6 +1,5 @@
 #!/bin/bash
 
-RED='\033[0;31m'
 NC='\033[0m' # No Color
 IGreen='\033[0;92m'
 BICyan='\033[1;96m' 
@@ -16,8 +15,9 @@ tests=("first_test.c"  "string_parse_test.c")
 class=(""  "../src/http/http.c")
 label=("Sample Test"  "Parse HTTP string test")
 
-for i in 0 1
-do
+
+for (( i=0; i<=${#tests[@]}-1; i++ ))
+do  
     ii=$((i+1))
     echo ""
     echo -e "${BIRed}=== ${label[@]:i:ii} === [ ${BICyan} ${tests[@]:i:ii} ${BIRed} ] ${NC} "
@@ -26,6 +26,4 @@ do
     echo -e "${BIRed}===================================================================${NC} "
     echo ""
 done
-
-
 
