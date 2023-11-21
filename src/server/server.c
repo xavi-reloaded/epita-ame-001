@@ -70,6 +70,12 @@ void respond(int client_fd, const char *buffer, size_t bytes)
     }
 }
 
+// prints de configuration
+void inspectTheThing()
+{
+
+}
+
 void communicate(int client_fd)
 {
     ssize_t bytes = 0;
@@ -87,6 +93,7 @@ void communicate(int client_fd)
         fprintf(stdout, "Received message: \n%s", my_var);
         respond(client_fd, my_var, strlen(my_var));
         free(my_var);
+
     }
 
     // here check_buffer
