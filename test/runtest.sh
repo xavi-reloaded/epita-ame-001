@@ -27,3 +27,4 @@ do
     echo ""
 done
 
+rm test
