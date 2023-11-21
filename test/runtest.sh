@@ -1,5 +1,4 @@
-set -i
-
+#!/bin/bash
 
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -7,8 +6,15 @@ case "${unameOut}" in
     *)          EXTRA_FLAGS=""
 esac
 
-TEST_NAME="string_parse_test.c"
 
-gcc -o test ${TEST_NAME} ${EXTRA_FLAGS} -lcriterion
+# NOTE : Quote it else use array to avoid problems #
+FILES="*test.*"
+for f in $FILES
+do
+  echo "RUNNING TEST ${f}"
+  gcc -o test ${f} ${EXTRA_FLAGS} -lcriterion
 ./test
+done
+
+
 
