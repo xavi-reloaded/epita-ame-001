@@ -21,8 +21,8 @@ Test(get_piece, simple)
 Test(get_piece, one) 
 {
     // get_piece function should return desired position of string
-    char *str = "hello pepito you are snice";
-    char *separator = " ";
+    char str[] = "apple,orange,banana,grape";
+    char separator[] = ",";
     size_t position = 1;
     char *expected = "you";
 
