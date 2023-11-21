@@ -9,10 +9,11 @@
 #define COMMAND_HEAD HEAD
 
 struct httprequest *parse(char *str) {
-  static const char *separator = " \t"; 
+  static const char *separator = "SP"; 
   char *command = str;
   str += strcspn(str, separator);
   if (*str) {
+    *str++ = 0;
     *str++ = 0;
   }
   
