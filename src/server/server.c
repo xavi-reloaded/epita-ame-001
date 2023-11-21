@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "server.h"
+#include "../config/config.h"
 
 #define BUFFER_SIZE 1024
 
@@ -73,7 +74,14 @@ void respond(int client_fd, const char *buffer, size_t bytes)
 // prints de configuration
 void inspectTheThing()
 {
-
+    struct config *cfg = parse_configuration("../../server.config");
+    if (cfg == NULL)
+    {
+	    printf("invalid\n");
+	    return;
+    }
+    print_config(cfg);
+    config_destroy(cfg);
 }
 
 void communicate(int client_fd)
