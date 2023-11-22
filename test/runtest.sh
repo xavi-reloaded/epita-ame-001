@@ -11,17 +11,17 @@ case "${unameOut}" in
     *)          EXTRA_FLAGS=""
 esac
 
-tests=("first_test.c"  "string_parse_test.c")
-class=(""  "../src/http/http.c")
-label=("Sample Test"  "Parse HTTP string test")
+tests=("first_test.c" "string_parse_test.c" "httpcommand_test.c" )
+class=("" "../src/http/http.c" "../src/server/httpcommand.c ../src/http/http.c" )
+label=("Sample Test" "Parse HTTP string test" "Parse HTTP message" )
 
 
 for (( i=0; i<=${#tests[@]}-1; i++ ))
 do  
     ii=$((i+1))
     echo ""
-    echo -e "${BIRed}=== ${label[@]:i:ii} === [ ${BICyan} ${tests[@]:i:ii} ${BIRed} ] ${NC} "
-    gcc -o test ${tests[@]:i:ii} ${class[@]:i:ii} ${EXTRA_FLAGS} -lcriterion
+    echo -e "${BIRed}=== (${IGreen}${ii}${BIRed}) ${label[$i]} === [ ${BICyan} ${tests[$i]} ${BIRed} ] ${NC} "
+    gcc -o test ${tests[$i]} ${class[$i]} ${EXTRA_FLAGS} -lcriterion
     ./test
     echo -e "${BIRed}===================================================================${NC} "
     echo ""

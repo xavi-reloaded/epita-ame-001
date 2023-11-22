@@ -4,23 +4,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include "httpcommand.h"
+#include "../http/http.h"
 
 #define COMMAND_GET GET
 #define COMMAND_HEAD HEAD
 
-struct httprequest *parse(char *str) {
-  static const char *separator = "SP"; 
-  char *command = str;
-  str += strcspn(str, separator);
-  if (*str) {
-    *str++ = 0;
-    *str++ = 0;
-  }
-  
-  char *argument = str;
-  printf("Command : %s\n", command);
-  printf("Argument: %s \n", argument);
-  
+struct httprequest *parse(char str[]) {
+  char separator[] = "SP";
+  char *command = get_piece(str, separator, 1);
+  char *argument = get_piece(str, separator, 2);
 
   struct httprequest *res = malloc(sizeof(struct httprequest));
   res->command = command;
@@ -35,6 +27,6 @@ void tokenizer(char *command)
     printf("FULL STRING IS [%s] \n", command);
     struct httprequest *res = parse(command);
     printf("q [%s] \n", res->command);
-    printf("w [%s] \n", res->argument);      
+    printf("w [%s] \n", res->argument);         
 }
 
