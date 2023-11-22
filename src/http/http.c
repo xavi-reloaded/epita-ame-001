@@ -23,54 +23,6 @@ char *get_piece(char *str, char *separator, size_t position)
     }
     return token;
 }
-
-void Trim(char* destination, char* source, int size)
-{
-    bool trim = true;
-    int index = 0;
-    int i;
-    for (i = 0; i < size; ++i)
-    {
-        if (source[i] == '\n' || source[i] == '\0')
-        {
-            destination[index++] = '\0';
-            break;
-        }
-        else if (source[i] != ' ' && source[i] != '\t')
-        {
-            destination[index++] = source[i];
-            trim = false;
-        }
-        else if (trim)
-            continue;
-        else
-        {
-            if (index > 0 && destination[index - 1] != ' ')
-                destination[index++] = ' ';
-        }
-    }
-}
-
-void ParseUpToSymbol(char* destination, char* source, int size, char delimiter)
-{
-    int index = 0;
-    int i;
-    for (i = 0; i < size; ++i)
-    {
-        if (source[i] != delimiter && source[i] != '\n' && source[i] != '\0'  && source[i] != ' ')
-        {
-            destination[index++] = source[i];
-        }
-        else
-        {
-            destination[i] = '\0';
-            break;
-        }
-    }
-
-    Trim(destination, destination, size);
-}
-
 /*char *get_piece(char *str, char *separator, size_t position) {
     size_t separator_len = strlen(separator);
     size_t str_len = strlen(str);
