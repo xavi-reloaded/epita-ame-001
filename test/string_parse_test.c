@@ -29,6 +29,19 @@ Test(get_piece, one_length_separator)
 }
 
 
+Test(get_first_line_from_http_message, when_string_contains_part_of_sedparator) 
+{
+    // get_first_line function should return desired position of string
+    char str[] = "GETSP/hello.txtSPHTTPSPHOLASP";
+    char separator[] = "SP";
+    size_t position = 3;
+    char *expected = "HTTP";
+
+    char *actual = get_piece(str, separator, position);
+
+    cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
+}
+
 Test(get_first_line_from_http_message, simple) 
 {
     // get_first_line function should return desired position of string
@@ -38,3 +51,5 @@ Test(get_first_line_from_http_message, simple)
 
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
 }
+
+
