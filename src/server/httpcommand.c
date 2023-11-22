@@ -9,6 +9,7 @@
 #define COMMAND_GET GET
 #define COMMAND_HEAD HEAD
 
+
 struct httprequest *parse(char str[]) {
     
   char SP[] = " ";
