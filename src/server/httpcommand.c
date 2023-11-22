@@ -11,7 +11,7 @@
 
 struct httprequest *parse(char str[]) {
     
-  char SP[] = "SP";
+  char SP[] = " ";
   
   // CUIDADO CON str que CAMBIA CUANDO VA A PIECE
   char *version = get_piece(str, SP, 3);

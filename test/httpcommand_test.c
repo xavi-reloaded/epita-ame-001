@@ -6,7 +6,7 @@
 Test(httpcommand, parse_command) 
 {
     // parse should handle http request
-    char http_message[] = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    char http_message[] = "GET /hello.txt HTTP/1.1\r\nUser-Agent: curl/7.64.1\r\n";
     struct httprequest *req = parse(http_message);
 
     char *expected = "GET";
@@ -17,7 +17,7 @@ Test(httpcommand, parse_command)
 Test(httpcommand, parse_argument) 
 {
     // parse should handle http request
-    char http_message[] = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    char http_message[] = "GET /hello.txt HTTP/1.1\r\nUser-Agent: curl/7.64.1\r\n";
     struct httprequest *req = parse(http_message);
 
     char *expected = "/hello.txt";
@@ -29,7 +29,7 @@ Test(httpcommand, parse_argument)
 Test(httpcommand, parse_version) 
 {
     // parse should handle http request
-    char http_message[] = "GETSP/hello.txtSPHTTP/1.1SPCRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    char http_message[] = "GET /hello.txt HTTP/1.1\r\nUser-Agent: curl/7.64.1\r\n";
     struct httprequest *req = parse(http_message);
 
     char *expected = "HTTP/1.1";

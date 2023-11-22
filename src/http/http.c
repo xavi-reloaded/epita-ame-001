@@ -5,7 +5,7 @@
 #include <string.h>
 #include "http.h"
 
-/*char *get_piece(char *str, char *separator, size_t position)
+char *get_piece(char *str, char *separator, size_t position)
 {
     char *str_copy = strdup(str);
     if (str_copy == NULL) 
@@ -21,10 +21,56 @@
         current_position++;
     }
     return token;
-}*/
+}
 
+void Trim(char* destination, char* source, int size)
+{
+    bool trim = true;
+    int index = 0;
+    int i;
+    for (i = 0; i < size; ++i)
+    {
+        if (source[i] == '\n' || source[i] == '\0')
+        {
+            destination[index++] = '\0';
+            break;
+        }
+        else if (source[i] != ' ' && source[i] != '\t')
+        {
+            destination[index++] = source[i];
+            trim = false;
+        }
+        else if (trim)
+            continue;
+        else
+        {
+            if (index > 0 && destination[index - 1] != ' ')
+                destination[index++] = ' ';
+        }
+    }
+}
 
-char *get_piece(char *str, char *separator, size_t position) {
+void ParseUpToSymbol(char* destination, char* source, int size, char delimiter)
+{
+    int index = 0;
+    int i;
+    for (i = 0; i < size; ++i)
+    {
+        if (source[i] != delimiter && source[i] != '\n' && source[i] != '\0'  && source[i] != ' '))
+        {
+            destination[index++] = source[i];
+        }
+        else
+        {
+            destination[i] = '\0';
+            break;
+        }
+    }
+
+    Trim(destination, destination, size);
+}
+
+/*char *get_piece(char *str, char *separator, size_t position) {
     size_t separator_len = strlen(separator);
     size_t str_len = strlen(str);
     size_t current_position = 1;
@@ -77,12 +123,14 @@ char *get_piece(char *str, char *separator, size_t position) {
 
     return NULL;
 }
+*/
 
 char *get_first_line_from_http_message(char *http_message)
 {
     return get_piece(http_message, "CRLF", 1);
 }
 
+/*
 int main() 
 {
     // Example string, separator, and position
@@ -102,3 +150,4 @@ int main()
 
     return 0;
 }
+*/
