@@ -1,5 +1,5 @@
 #include <criterion/criterion.h>
-#include "../src/server/httpcommand.h"
+#include "../src/http/httpcommand.h"
 
 
 

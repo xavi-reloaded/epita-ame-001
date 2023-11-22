@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "httpcommand.h"
-#include "../http/http.h"
+#include "http.h"
 
 #define COMMAND_GET GET
 #define COMMAND_HEAD HEAD
