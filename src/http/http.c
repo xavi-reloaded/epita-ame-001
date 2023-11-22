@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "http.h"
 
 char *get_piece(char *str, char *separator, size_t position)
@@ -56,7 +57,7 @@ void ParseUpToSymbol(char* destination, char* source, int size, char delimiter)
     int i;
     for (i = 0; i < size; ++i)
     {
-        if (source[i] != delimiter && source[i] != '\n' && source[i] != '\0'  && source[i] != ' '))
+        if (source[i] != delimiter && source[i] != '\n' && source[i] != '\0'  && source[i] != ' ')
         {
             destination[index++] = source[i];
         }
