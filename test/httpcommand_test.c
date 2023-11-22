@@ -1,13 +1,27 @@
 #include <criterion/criterion.h>
 #include "../src/server/httpcommand.h"
 
-Test(httpcommand, parse_some) 
+
+Test(httpcommand, parse_command) 
 {
-    // get_piece function should return desired position of string
-    char *http_message = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    // parse should handle http request
+    char http_message[] = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    struct httprequest *req = parse(http_message);
+
     char *expected = "GET";
-    //struct httprequest *req = parse(http_message);
-    char *actual = "req->command";
+    char *actual = req->command;
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
 }
+
+Test(httpcommand, parse_argument) 
+{
+    // parse should handle http request
+    char http_message[] = "GETSP/hello.txtSPHTTP/1.1CRLFUser-Agent:SPcurl/7.64.1CRLFCRLF";
+    struct httprequest *req = parse(http_message);
+
+    char *expected = "/hello.txt";
+    char *actual = req->argument;
+    cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
+}
+
 
