@@ -16,7 +16,6 @@ struct httprequest *parse(char str[]) {
   // CUIDADO CON str que CAMBIA CUANDO VA A PIECE
   char *argument = get_piece(str, SP, 2);
   char *command = get_piece(str, SP, 1);
-  ;
 
   struct httprequest *res = malloc(sizeof(struct httprequest));
   res->command = command;
