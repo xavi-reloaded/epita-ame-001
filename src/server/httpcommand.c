@@ -10,9 +10,13 @@
 #define COMMAND_HEAD HEAD
 
 struct httprequest *parse(char str[]) {
-  char separator[] = "SP";
-  char *command = get_piece(str, separator, 1);
-  char *argument = get_piece(str, separator, 2);
+    
+  char SP[] = "SP";
+  
+  // CUIDADO CON str que CAMBIA CUANDO VA A PIECE
+  char *argument = get_piece(str, SP, 2);
+  char *command = get_piece(str, SP, 1);
+  ;
 
   struct httprequest *res = malloc(sizeof(struct httprequest));
   res->command = command;
