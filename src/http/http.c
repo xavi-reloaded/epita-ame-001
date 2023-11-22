@@ -1,13 +1,20 @@
+#define _GNU_SOURCE
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "http.h"
 
 char *get_piece(char *str, char *separator, size_t position)
 {
+    char *str_copy = strdup(str);
+    if (str_copy == NULL) 
+    {
+        perror("Memory allocation error");
+        return NULL;
+    }
     size_t current_position = 1;
-
-    char *token = strtok(str, separator);
+    char *token = strtok(str_copy, separator);
     while (token != NULL && current_position < position) 
     {
         token = strtok(NULL, separator);
@@ -20,6 +27,7 @@ char *get_first_line_from_http_message(char *http_message)
 {
     return get_piece(http_message, "CRLF", 1);
 }
+
 /*
 int main() 
 {
