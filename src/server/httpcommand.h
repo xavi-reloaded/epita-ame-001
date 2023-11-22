@@ -6,6 +6,7 @@ struct httprequest
 {
     char *command;
     char *argument;
+    char *version;
 };
 
 void tokenizer(char *command);

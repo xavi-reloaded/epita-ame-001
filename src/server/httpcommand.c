@@ -14,22 +14,16 @@ struct httprequest *parse(char str[]) {
   char SP[] = "SP";
   
   // CUIDADO CON str que CAMBIA CUANDO VA A PIECE
+  char *version = "mierder for you"; //get_piece(str, SP, 3);
   char *argument = get_piece(str, SP, 2);
   char *command = get_piece(str, SP, 1);
 
   struct httprequest *res = malloc(sizeof(struct httprequest));
   res->command = command;
   res->argument = argument;
-
+  res->version = version;
   return res;
   
 }
 
-void tokenizer(char *command)
-{
-    printf("FULL STRING IS [%s] \n", command);
-    struct httprequest *res = parse(command);
-    printf("q [%s] \n", res->command);
-    printf("w [%s] \n", res->argument);         
-}
 
