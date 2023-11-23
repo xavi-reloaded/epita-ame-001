@@ -20,7 +20,7 @@ Test(http_response_from_struct_response, valid_struct)
     resp->header = h1;
     resp->body = "bodybodybodybody";
     
-    char expected[] = "HTTP/1.1200OKDate:12 november 2023Size:12bodybodybodybody";
+    char expected[] = "HTTP/1.1 200 OK\nDate: 12 november 2023\nSize: 12\n\nbodybodybodybody";
     char *actual = response_from_struct_response(resp);
 
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);

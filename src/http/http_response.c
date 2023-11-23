@@ -39,6 +39,6 @@ char *response_from_struct_response(struct http_response *response) //what with 
     }
 
     strcat(res, response->body);
-
+    
     return res;
 }
