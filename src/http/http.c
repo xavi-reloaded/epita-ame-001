@@ -37,5 +37,7 @@ char *get_piece(char *str, char *separator, size_t position)
 
 char *get_first_line_from_http_message(char *http_message)
 {
-    return get_piece(http_message, "CRLF", 1);
+    char *tmp = malloc(strlen(http_message) + 1);
+    strncpy(tmp, http_message, strlen(http_message));
+    return get_piece(tmp, "\r\n", 1);
 }

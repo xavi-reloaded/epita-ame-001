@@ -14,12 +14,9 @@ struct httprequest *parse(char* str) {
     
   char SP[] = " ";
   char CRLN[] = "\r\n";
-
-  char *tmp = malloc(strlen(str) + 1);
-  strncpy(tmp, str, strlen(str));
-
-  char *version = get_piece(tmp, CRLN, 1);
-  version = get_piece(version, SP, 3); 
+  
+  char *line = get_first_line_from_http_message(str);
+  char *version = get_piece(line, SP, 3);  
   char *path = get_piece(str, SP, 2);
   char *command = get_piece(str, SP, 1);
   
