@@ -23,22 +23,28 @@ char *response_from_struct_response(struct http_response *response) //what with 
     size_t line_len = c * strlen(response->http_version) + c * strlen(response->status_code) + c * strlen(response->reason_phrase);
     size_t h_len = header_len(response);
     size_t b_len = c * strlen(response->body);
+    size_t sp_crlf_len = c * (4 + h_len * 2);
 
-    char *res = malloc(line_len + h_len + b_len + 1);
+    char *res = malloc(line_len + h_len + b_len + sp_crlf_len + 1);
 
     strcpy(res, response->http_version);
+    strcat(res, " ");
     strcat(res, response->status_code);
+    strcat(res, " ");
     strcat(res, response->reason_phrase);
+    strcat(res, "\n");
 
     struct header *h_copy = response->header;
     while (h_copy != NULL)
     {
         strcat(res, h_copy->type);
+        strcat(res, " ");
         strcat(res, h_copy->data);
+        strcat(res, "\n");
         h_copy = h_copy->next;
     }
+    strcat(res, "\n");
 
     strcat(res, response->body);
-    
     return res;
 }
