@@ -11,8 +11,8 @@ case "${unameOut}" in
     *)          EXTRA_FLAGS=""
 esac
 
-tests=("first_test.c" "string_parse_test.c string_parse2_test.c" "httpcommand_test.c" )
-class=("" "../src/http/http.c" "../src/http/httpcommand.c ../src/http/http.c" )
+tests=("first_test.c" "string_parse_test.c string_parse2_test.c" "httpcommand_test.c" "http_response_test.c" )
+class=("" "../src/http/http.c" "../src/http/httpcommand.c ../src/http/http.c" "../src/http/http_response.c" )
 label=("Sample Test" "Parse HTTP string test" "Parse HTTP message" )
 
 
