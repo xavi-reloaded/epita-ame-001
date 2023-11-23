@@ -20,23 +20,14 @@ static size_t header_len(struct http_response *response)
 char *response_from_struct_response(struct http_response *response) //what with sp and crlf
 {
     size_t c = sizeof(char);
-    size_t line_len = c * strlen(response->http_version) + c * 3 + c * strlen(response->reason_phrase);
+    size_t line_len = c * strlen(response->http_version) + c * strlen(response->status_code) + c * strlen(response->reason_phrase);
     size_t h_len = header_len(response);
     size_t b_len = c * strlen(response->body);
 
     char *res = malloc(line_len + h_len + b_len + 1);
 
-    strcat(res, response->http_version);
-
-    int int_status = response->status_code;
-    char *status = malloc(c * 3);
-    for (size_t i = 0; i < 3; i++)
-    {
-        status[3 - i] = int_status % 10;
-        int_status = int_status / 10;
-    }
-    strcat(res, status);
-
+    strcpy(res, response->http_version);
+    strcat(res, response->status_code);
     strcat(res, response->reason_phrase);
 
     struct header *h_copy = response->header;

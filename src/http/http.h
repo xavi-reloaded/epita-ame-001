@@ -11,7 +11,7 @@ struct header
 struct http_response 
 {
     char *http_version;
-    int status_code;
+    char *status_code;
     char *reason_phrase;
     struct header *header;
     char *body;

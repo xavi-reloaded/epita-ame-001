@@ -15,7 +15,7 @@ Test(http_response_from_struct_response, valid_struct)
 
     struct http_response *resp = malloc(sizeof(struct http_response));
     resp->http_version = "HTTP/1.1";
-    resp->status_code = 200;
+    resp->status_code = "200";
     resp->reason_phrase = "OK";
     resp->header = h1;
     resp->body = "bodybodybodybody";
