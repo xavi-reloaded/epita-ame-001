@@ -25,3 +25,4 @@ Test(http_response_from_struct_response, valid_struct)
 
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
 }
+

@@ -4,6 +4,11 @@
 
 #include "http.h"
 
+static char *body_as_string(char * path) // TODO
+{
+    return NULL;
+}
+
 static size_t header_len(struct http_response *response)
 {
     size_t len = 0;
@@ -17,7 +22,7 @@ static size_t header_len(struct http_response *response)
     return len;
 }
 
-char *response_from_struct_response(struct http_response *response) //what with sp and crlf
+char *response_from_struct_response(struct http_response *response) // I consider body_as_string
 {
     size_t c = sizeof(char);
     size_t line_len = c * strlen(response->http_version) + c * strlen(response->status_code) + c * strlen(response->reason_phrase);
