@@ -7,6 +7,7 @@ struct httprequest
     char *command;
     char *path;
     char *version;
+    char *headers;
 };
 
 struct httprequest *parse(char *str);

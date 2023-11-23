@@ -41,3 +41,27 @@ char *get_first_line_from_http_message(char *http_message)
     strncpy(tmp, http_message, strlen(http_message));
     return get_piece(tmp, "\r\n", 1);
 }
+
+
+char *get_headers_http_message(char *http_message)
+{
+    char *tmp = malloc(strlen(http_message) + 1);
+    strncpy(tmp, http_message, strlen(http_message));
+    char *token1 = get_piece(tmp, "\r\n", 2);
+    
+    char *tmp2 = malloc(strlen(http_message) + 1);
+    strncpy(tmp2, http_message, strlen(http_message));
+    char *token2 = get_piece(tmp2, "\r\n", 3);
+
+    char *tmp3 = malloc(strlen(http_message) + 1);
+    strncpy(tmp3, http_message, strlen(http_message));
+    char *token3 = get_piece(tmp3, "\r\n", 4);
+
+    char *result = malloc(strlen(http_message) + 100);
+
+    strcpy(result, token1);  // Copy str1 into result
+    strcat(result, "\r\n");
+    strcat(result, token2);
+    return result;
+}
+
