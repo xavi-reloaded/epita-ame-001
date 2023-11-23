@@ -1,5 +1,4 @@
 #include <criterion/criterion.h>
-#include "../src/http/http.h"
 
 #include <stdio.h>
 #include <stdlib.h>

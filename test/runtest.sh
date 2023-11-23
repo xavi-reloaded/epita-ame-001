@@ -12,7 +12,7 @@ case "${unameOut}" in
 esac
 
 tests=("first_test.c" "string_parse_test.c string_parse2_test.c" "httpcommand_test.c" )
-class=("" "../src/http/http.c" "../src/server/httpcommand.c ../src/http/http.c" )
+class=("" "../src/http/http.c" "../src/http/httpcommand.c ../src/http/http.c" )
 label=("Sample Test" "Parse HTTP string test" "Parse HTTP message" )
 
 

@@ -5,11 +5,10 @@
 struct httprequest
 {
     char *command;
-    char *argument;
+    char *path;
     char *version;
 };
 
-void tokenizer(char *command);
 struct httprequest *parse(char *str);
 
 #endif /* !HTTPCOMMAND_H */

@@ -21,7 +21,7 @@ Test(httpcommand, parse_argument)
     struct httprequest *req = parse(http_message);
 
     char *expected = "/hello.txt";
-    char *actual = req->argument;
+    char *actual = req->path;
     cr_assert(strcmp(actual, expected) == 0, "Actual: %s, Expected: %s", actual, expected);
 }
 
