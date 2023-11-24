@@ -6,8 +6,8 @@ Test(get_piece, separator_SP)
     // get_piece function should return desired position of string
     char str[] = "helloSPpepitoSPyouSPareSPnice";
     char separator[] = "SP";
-    size_t position = 4;
-    char *expected = "are";
+    size_t position = 5;
+    char *expected = "nice";
 
     char *actual = get_piece(str, separator, position);
 
