@@ -34,9 +34,13 @@ char *get_piece(char *str, char *separator, size_t position);
 
 char *get_first_line_from_http_message(char *http_message);
 struct header *get_headers_http_message(char *http_message);
+void destroy_header(struct header *head);
+void destroy_request(struct http_request *request);
+void destroy_response(struct http_response *response);
 
 char *response_from_struct_response(struct http_response *response);
 
+struct http_response *rules(struct http_request *request);
 void check_method(char *method, struct http_response *response);
 void check_version(char *version, struct http_response *response);
 int check_headers(struct header *headers, struct config *config);

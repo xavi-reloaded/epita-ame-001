@@ -1,8 +1,43 @@
-#include "http.h"
-#include "../config/config.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <stdio.h>
+
+#include "http.h"
+#include "../config/config.h"
+
+static void date(void)
+{
+    time_t rawtime;
+    struct tm *timeinfo;
+    char buffer[80];
+
+    // Obtenez l'heure actuelle
+    time(&rawtime);
+    timeinfo = gmtime(&rawtime); // Utilisez gmtime pour obtenir le temps UTC
+
+    // Formattez la date selon le format spécifié
+    strftime(buffer, sizeof(buffer), "Date: %a, %d %b %Y %H:%M:%S GMT", timeinfo);
+
+    // Affichez le résultat
+    printf("%s\n", buffer);
+}
+
+int main(void)
+{
+    date();
+    return 0;
+}
+
+/*struct http_response *rules(struct http_request *request)
+{
+    struct http_response *res = malloc(sizeof(struct http_response));
+    struct header *date = malloc(sizeof(struct header));
+    date->type = "Date:";
+    date->data = 
+    res->header = request->headers;
+}
 
 void check_method(char *method, struct http_response *response)
 {
@@ -122,4 +157,4 @@ void check_found(char *ressource, struct http_response *response)
 void do_status_line(struct http_request *request, struct http_response *response)
 {
     //TODO
-}
+}*/

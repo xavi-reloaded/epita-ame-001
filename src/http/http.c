@@ -45,10 +45,9 @@ char *get_first_line_from_http_message(char *http_message)
     free(tmp);
 }
 
-static void free_headers(struct header *head) 
+void destroy_header(struct header *head) 
 {
-    while (head != NULL) 
-    {
+    while (head != NULL) {
         struct header *temp = head;
         head = head->next;
         free(temp->type);
@@ -78,7 +77,7 @@ struct header *get_headers_http_message(char *http_message)
         if (new_header == NULL) 
         {
             perror("Memory allocation error");
-            free_headers(head);
+            destroy_header(head);
             free(message_copy);
             return NULL;
         }
@@ -113,11 +112,30 @@ struct header *get_headers_http_message(char *http_message)
     return head;
 }
 
-/*int main(void)
+void destroy_request(struct http_request *request) 
 {
-    char http_message[] = "GET /hello.txt HTTP/1.1\r\nUser-Agent: curl/7.64444444\r\n\r\nMierdus: mierdermierder\r\n\r\n";
-    struct http_request *req = parse(http_message);
-    printf("%s\n", req->command);
-    return 0;
-}*/
+    if (request == NULL) {
+        return;
+    }
+
+    free(request->command);
+    free(request->path);
+    free(request->version);
+    destroy_header(request->headers);
+    free(request);
+}
+
+void destroy_response(struct http_response *response) 
+{
+    if (response == NULL) {
+        return;
+    }
+
+    free(response->http_version);
+    free(response->status_code);
+    free(response->reason_phrase);
+    destroy_header(response->header);
+    free(response->body);
+    free(response);
+}
 
