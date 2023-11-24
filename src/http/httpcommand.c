@@ -18,7 +18,7 @@ struct http_request *parse(char* str)
   //char CRLN[] = "\r\n";
 
   char *line = get_first_line_from_http_message(str);
-  struct header *headers = NULL; //get_headers_http_message(str);
+  struct header *headers = get_headers_http_message(str);
   
   char *version = get_piece(line, SP, 3);
   char *path = get_piece(str, SP, 2);
