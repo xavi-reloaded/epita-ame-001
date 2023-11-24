@@ -2,42 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <stdio.h>
 
 #include "http.h"
 #include "../config/config.h"
-
-static void date(void)
-{
-    time_t rawtime;
-    struct tm *timeinfo;
-    char buffer[80];
-
-    // Obtenez l'heure actuelle
-    time(&rawtime);
-    timeinfo = gmtime(&rawtime); // Utilisez gmtime pour obtenir le temps UTC
-
-    // Formattez la date selon le format spécifié
-    strftime(buffer, sizeof(buffer), "Date: %a, %d %b %Y %H:%M:%S GMT", timeinfo);
-
-    // Affichez le résultat
-    printf("%s\n", buffer);
-}
-
-int main(void)
-{
-    date();
-    return 0;
-}
-
-/*struct http_response *rules(struct http_request *request)
-{
-    struct http_response *res = malloc(sizeof(struct http_response));
-    struct header *date = malloc(sizeof(struct header));
-    date->type = "Date:";
-    date->data = 
-    res->header = request->headers;
-}
 
 void check_method(char *method, struct http_response *response)
 {
@@ -156,5 +123,44 @@ void check_found(char *ressource, struct http_response *response)
 
 void do_status_line(struct http_request *request, struct http_response *response)
 {
-    //TODO
-}*/
+    check_method(request->command, response);
+    check_version(request->version, response);
+    check_headers(request->headers, response);
+}
+
+static char *my_date(void)
+{
+    time_t rawtime;
+    struct tm *timeinfo;
+    char buffer[80];
+    time(&rawtime);
+    timeinfo = gmtime(&rawtime);
+    strftime(buffer, sizeof(buffer), "%a, %d %b %Y %H:%M:%S GMT", timeinfo);
+    return buffer;
+}
+
+struct http_response *rules(struct http_request *request) // tests todo
+{
+    struct http_response *res = malloc(sizeof(struct http_response));
+    struct header *date = malloc(sizeof(struct header));
+    date->type = "Date:";
+    date->data = my_date();
+    date->next = request->headers;
+
+    res->header = date;
+    res->http_version = "HTTP/1.1";
+    res->status_code = "200";
+    res->reason_phrase = "OK";
+    res->body = NULL; //TODO
+
+    do_status_line(request, res);
+
+    if (strcmp(res->status_code, "200") != 0)
+    {
+        destroy_header(date);
+        res->header = NULL;
+        res->body = NULL;
+    }
+    destroy_request(request);
+    return res; 
+}

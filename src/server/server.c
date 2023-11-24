@@ -89,9 +89,9 @@ void communicate(int client_fd, const char *root_dir)
         fprintf(stdout, "Received message: \n%s", my_var);
 
         struct http_request *res = parse(my_var);
-        fprintf(stdout, "Received message: \n%s", res->command);
+        // fprintf(stdout, "Received message: \n%s", res->command);
 
-        // struct http_response *response = rules(res);
+        struct http_response *response = rules(res);
         // char *sring_response = to_string(response);
 
         // EMPIEZA LA FIESTA BUSCANDO EN ROOT DIR
