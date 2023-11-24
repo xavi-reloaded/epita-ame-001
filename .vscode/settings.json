@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "criterion.h": "c"
+        "criterion.h": "c",
+        "http.h": "c"
     }
 }
