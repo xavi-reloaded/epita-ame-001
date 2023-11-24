@@ -88,8 +88,11 @@ void communicate(int client_fd, const char *root_dir)
         
         fprintf(stdout, "Received message: \n%s", my_var);
 
-        struct httprequest *res = parse(my_var);
+        struct http_request *res = parse(my_var);
         fprintf(stdout, "Received message: \n%s", res->command);
+
+        // struct http_response *response = rules(res);
+        // char *sring_response = to_string(response);
 
         // EMPIEZA LA FIESTA BUSCANDO EN ROOT DIR
         // 1. no existe => (err(404))
@@ -99,8 +102,6 @@ void communicate(int client_fd, const char *root_dir)
         respond(client_fd, my_var, strlen(my_var));
 
         free(my_var);
-
-        
 
 
     }
