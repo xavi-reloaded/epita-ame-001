@@ -6,16 +6,15 @@
 #include <stdbool.h>
 #include "http.h"
 
-static char *tokenize(char *input, char *delimiter) // size_t position
+static char *tokenize(char *input, char *delimiter)
 {
-    char *string;
+    static char *string;
     if (input != NULL)
         string = input;
-    else
-        return NULL;
+    if (string == NULL)
+        return string;
     char *end = strstr(string, delimiter);
-    if (end == NULL) 
-    {
+    if (end == NULL) {
         char *temp = string;
         string = NULL;
         return temp;
@@ -40,36 +39,85 @@ char *get_piece(char *str, char *separator, size_t position)
 
 char *get_first_line_from_http_message(char *http_message)
 {
-    //char *tmp = malloc(strlen(http_message) + 1);
-    //strncpy(tmp, http_message, strlen(http_message));
-    return get_piece(http_message, "\r\n", 1);
+    char *tmp = malloc(strlen(http_message) + 1);
+    strncpy(tmp, http_message, strlen(http_message));
+    return get_piece(tmp, "\r\n", 1);
+    free(tmp);
 }
 
+static void free_headers(struct header *head) 
+{
+    while (head != NULL) 
+    {
+        struct header *temp = head;
+        head = head->next;
+        free(temp->type);
+        free(temp->data);
+        free(temp);
+    }
+}
 
 struct header *get_headers_http_message(char *http_message)
 {
-    struct header *res = malloc(sizeof(struct header));
-    struct header *res_cpy = res;
-
-    char *tmp = malloc(strlen(http_message) + 1);
-    strncpy(tmp, http_message, strlen(http_message));
-    size_t i = 2;
-    while (1)//if une ligne vide
+    char *message_copy = malloc(strlen(http_message) + 1);
+    message_copy = strcpy(message_copy, http_message);
+    if (message_copy == NULL) 
     {
-        struct header *n = malloc(sizeof(struct header));
-        char *line = get_piece(tmp, "\r\n", 2);
-        if (strlen(line) < 2 || strcmp(line, "\r\n") == 0)
-        {
-            free(n);
-            break;
-        }
-        res_cpy->type = get_piece(line, " ", 1);
-        res_cpy->data = get_piece(line, " ", 2);
-        res_cpy->next = n;
-        res_cpy = res->next;
-        i++;
+        perror("Memory allocation error");
+        return NULL;
     }
-    res_cpy->next = NULL;
-    return res;
+
+    struct header *head = NULL;
+    struct header *current = NULL;
+    size_t i = 2;
+    char *line = get_piece(message_copy, "\r\n", i);
+
+    while (line != NULL && strlen(line) > 2) 
+    {
+        struct header *new_header = malloc(sizeof(struct header));
+        if (new_header == NULL) 
+        {
+            perror("Memory allocation error");
+            free_headers(head);
+            free(message_copy);
+            return NULL;
+        }
+
+        new_header->data = get_piece(line, " ", 2);
+        new_header->type = get_piece(line, " ", 1);
+        new_header->next = NULL;
+
+        if (head == NULL) 
+        {
+            head = new_header;
+            current = new_header;
+        } 
+        else 
+        {
+            current->next = new_header;
+            current = new_header;
+        }
+        i++;
+        char *copy = malloc(strlen(http_message) + 1);
+        copy = strcpy(copy, http_message);
+        if (copy == NULL) 
+        {
+            perror("Memory allocation error");
+            return NULL;
+        }
+        line = get_piece(copy, "\r\n", i);
+        free(copy);
+    }
+
+    free(message_copy);
+    return head;
 }
+
+/*int main(void)
+{
+    char http_message[] = "GET /hello.txt HTTP/1.1\r\nUser-Agent: curl/7.64444444\r\n\r\nMierdus: mierdermierder\r\n\r\n";
+    struct http_request *req = parse(http_message);
+    printf("%s\n", req->command);
+    return 0;
+}*/
 

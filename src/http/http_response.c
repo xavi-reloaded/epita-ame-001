@@ -4,8 +4,6 @@
 
 #include "http.h"
 
-
-
 static char *body_as_string(char * path) // TODO
 {
     return NULL;
@@ -30,7 +28,7 @@ char *response_from_struct_response(struct http_response *response) // I conside
     size_t line_len = c * strlen(response->http_version) + c * strlen(response->status_code) + c * strlen(response->reason_phrase);
     size_t h_len = header_len(response);
     size_t b_len = c * strlen(response->body);
-    size_t sp_crlf_len = c * (4 + h_len * 2);
+    size_t sp_crlf_len = c * (6 + h_len * 3);
 
     char *res = malloc(line_len + h_len + b_len + sp_crlf_len + 1);
 
@@ -39,7 +37,7 @@ char *response_from_struct_response(struct http_response *response) // I conside
     strcat(res, response->status_code);
     strcat(res, " ");
     strcat(res, response->reason_phrase);
-    strcat(res, "\n");
+    strcat(res, "\r\n");
 
     struct header *h_copy = response->header;
     while (h_copy != NULL)
@@ -47,10 +45,10 @@ char *response_from_struct_response(struct http_response *response) // I conside
         strcat(res, h_copy->type);
         strcat(res, " ");
         strcat(res, h_copy->data);
-        strcat(res, "\n");
+        strcat(res, "\r\n");
         h_copy = h_copy->next;
     }
-    strcat(res, "\n");
+    strcat(res, "\r\n");
 
     strcat(res, response->body);
     return res;
