@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <stdio.h>
 
 #include "http.h"
 #include "../config/config.h"
@@ -66,7 +67,9 @@ static int check_host(char *data, struct config *config)
 static int check_content_length(char *data, struct config *config)
 {
     //TODO
-    return 0;
+    if (strlen(data) > 0 && config != NULL)
+        return 0;
+    return 1;
 }
 
 int check_headers(struct header *headers, struct config *config) // 1 is ok
@@ -103,7 +106,7 @@ int check_headers(struct header *headers, struct config *config) // 1 is ok
     }
     return 1;
 }
-
+/*
 void check_valid_request(struct http_request *request, struct http_response *response)
 {
     //400 Bad Request if the request is malformed:
@@ -120,22 +123,28 @@ void check_found(char *ressource, struct http_response *response)
 {
     // 404 Not Found: Raised when a client tries to access a resource that does not exist.
 }
-
+*/
 void do_status_line(struct http_request *request, struct http_response *response)
 {
     check_method(request->command, response);
     check_version(request->version, response);
-    check_headers(request->headers, response);
+    // check_headers(request->headers, response);
 }
 
 static char *my_date(void)
 {
     time_t rawtime;
     struct tm *timeinfo;
-    char buffer[80];
+    char *buffer = (char *)malloc(80 * sizeof(char));
+    if (buffer == NULL) 
+    {
+        perror("Memory allocation error");
+        exit(EXIT_FAILURE);
+    }
+
     time(&rawtime);
     timeinfo = gmtime(&rawtime);
-    strftime(buffer, sizeof(buffer), "%a, %d %b %Y %H:%M:%S GMT", timeinfo);
+    strftime(buffer, 80, "%a, %d %b %Y %H:%M:%S GMT", timeinfo);
     return buffer;
 }
 
@@ -163,4 +172,15 @@ struct http_response *rules(struct http_request *request) // tests todo
     }
     destroy_request(request);
     return res; 
+}
+
+int main(void)
+{
+    char my_var[] = "GET /hello.txt HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n";
+    struct http_request *req = parse(my_var);
+    struct http_response *response = rules(req);
+    char *res = response_from_struct_response(response);
+    destroy_response(response);
+    printf("%s\n", res);
+    return 0;
 }

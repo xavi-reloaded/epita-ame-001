@@ -4,10 +4,10 @@
 
 #include "http.h"
 
-static char *body_as_string(char * path) // TODO
+/*static char *body_as_string(char * path) // TODO
 {
     return NULL;
-}
+}*/
 
 static size_t header_len(struct http_response *response)
 {
