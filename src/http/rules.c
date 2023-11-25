@@ -72,7 +72,7 @@ static int check_content_length(char *data, struct config *config)
     return 1;
 }
 
-int check_headers(struct header *headers, struct config *config) // 1 is ok
+int check_headers(struct header *headers, char *body, struct config *config) // 1 is ok
 {
     // used in check_valid_request
     // check if the headers are correct: host & content-length, the rest we don't care
@@ -107,7 +107,7 @@ int check_headers(struct header *headers, struct config *config) // 1 is ok
     return 1;
 }
 
-void check_valid_request(struct http_request *request, struct http_response *response)
+void check_valid_request(struct http_request *request, struct http_response *response, struct config *config)
 {
     //400 Bad Request if the request is malformed:
     // - Invalid syntax in the client’s request.
