@@ -92,14 +92,14 @@ void communicate(int client_fd, const char *root_dir)
         // fprintf(stdout, "Received message: \n%s", res->command);
 
         struct http_response *response = rules(res);
-        // char *sring_response = to_string(response);
+        char *sring_response = response_from_struct_response(response);
 
         // EMPIEZA LA FIESTA BUSCANDO EN ROOT DIR
         // 1. no existe => (err(404))
         // 2. si existe te paso el archivo (getFile(char *filename))
         // 3. 
 
-        respond(client_fd, my_var, strlen(my_var));
+        respond(client_fd, string_response, strlen(string_response));
 
         free(my_var);
 

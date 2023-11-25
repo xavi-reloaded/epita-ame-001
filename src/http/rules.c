@@ -106,7 +106,7 @@ int check_headers(struct header *headers, struct config *config) // 1 is ok
     }
     return 1;
 }
-/*
+
 void check_valid_request(struct http_request *request, struct http_response *response)
 {
     //400 Bad Request if the request is malformed:
@@ -123,7 +123,7 @@ void check_found(char *ressource, struct http_response *response)
 {
     // 404 Not Found: Raised when a client tries to access a resource that does not exist.
 }
-*/
+
 void do_status_line(struct http_request *request, struct http_response *response)
 {
     check_method(request->command, response);
