@@ -148,7 +148,7 @@ static char *my_date(void)
     return buffer;
 }
 
-struct http_response *rules(struct http_request *request) // tests todo
+struct http_response *rules(struct http_request *request) // tests todo !!!not working
 {
     struct http_response *res = malloc(sizeof(struct http_response));
     struct header *date = malloc(sizeof(struct header));
