@@ -174,6 +174,7 @@ struct http_response *rules(struct http_request *request) // tests todo !!!not w
     return res; 
 }
 
+/*
 int main(void)
 {
     char my_var[] = "GET /hello.txt HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n";
@@ -184,3 +185,4 @@ int main(void)
     printf("%s\n", res);
     return 0;
 }
+*/

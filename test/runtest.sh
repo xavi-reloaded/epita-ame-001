@@ -12,7 +12,7 @@ case "${unameOut}" in
 esac
 
 tests=("first_test.c" "string_parse_test.c string_parse2_test.c" "httpcommand_test.c" "http_response_test.c" "rules_test.c" "rules_valid_request_test.c")
-class=("" "../src/http/http.c" "../src/http/httpcommand.c ../src/http/http.c" "../src/http/http_response.c" "../src/http/rules.c" "../src/http/rules.c ../src/config/config.c ../src/utils/string/string.c")
+class=("" "../src/http/http.c" "../src/http/httpcommand.c ../src/http/http.c" "../src/http/http_response.c" "../src/http/rules.c  ../src/http/http.c" " ../src/http/http.c ../src/http/rules.c ../src/config/config.c ../src/utils/string/string.c")
 label=("Sample Test" "Parse HTTP string test" "Parse HTTP message" "Parse HTTP response" "Basic Rules" "Rules Request Checking")
 
 
