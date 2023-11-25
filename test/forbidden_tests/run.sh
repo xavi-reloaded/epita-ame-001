@@ -13,15 +13,15 @@ esac
 
 for f in ./*.c
 do
-    chmod -r ../test_files/access_forbidden.txt # write desired permissions
+    chmod -rx ../test_files/root/access_forbidden.txt # write desired permissions
 	echo "Processing $f"
     echo ""
     echo -e "${BIRed}=== (${IGreen}1${BIRed}) Forbbiden Tests === [ ${BICyan} ${f} ${BIRed} ] ${NC} "
-    gcc -o test ${f} ${EXTRA_FLAGS} -lcriterion
+    gcc -o test ${f}  ../../src/http/rules.c ../../src/http/http.c ${EXTRA_FLAGS} -lcriterion
     ./test
     echo -e "${BIRed}===================================================================${NC} "
     echo ""
     rm test
-    chmod -r ../test_files/access_forbidden.txt # restore desired permissions
+    chmod +rx ../test_files/root/access_forbidden.txt # restore desired permissions
 done
 

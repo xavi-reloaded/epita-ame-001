@@ -5,7 +5,7 @@
 
 Test(check_method, error) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -25,7 +25,7 @@ Test(check_method, error)
 
 Test(check_method, GET) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -45,7 +45,7 @@ Test(check_method, GET)
 
 Test(check_method, HEAD) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -65,7 +65,7 @@ Test(check_method, HEAD)
 
 Test(check_version, good) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -85,7 +85,7 @@ Test(check_version, good)
 
 Test(check_version, error) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -103,31 +103,9 @@ Test(check_version, error)
     cr_assert(strcmp(actual->reason_phrase, expected_reason) == 0, "Actual: %s, Expected: %s", actual->reason_phrase, expected_reason);
 }
 
-Test(check_forbidden, access_denied) 
-{
-    struct http_response *r = malloc(sizeof(struct http_request));
-    r->status_code = "200";
-    r->reason_phrase = "OK";
-    r->header = NULL;
-    r->http_version = NULL;
-    r->body = NULL;
-
-    char *ressource = "test_files/root/access_forbidden.txt";
-    char *root = "root";
-
-    check_forbidden(ressource, root, r);
-
-    char *expected_status = "403";
-    char *expected_reason = "Forbidden";
-
-    struct http_response *actual = r;
-    cr_assert(strcmp(actual->status_code, expected_status) == 0, "Actual: %s, Expected: %s", actual->status_code, expected_status);
-    cr_assert(strcmp(actual->reason_phrase, expected_reason) == 0, "Actual: %s, Expected: %s", actual->reason_phrase, expected_reason);
-}
-
 Test(check_forbidden, access_ok) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -148,7 +126,7 @@ Test(check_forbidden, access_ok)
 
 Test(check_found, not_exist) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -170,7 +148,7 @@ Test(check_found, not_exist)
 
 Test(check_found, out_of_root) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
@@ -192,7 +170,7 @@ Test(check_found, out_of_root)
 
 Test(check_found, found_ok) 
 {
-    struct http_response *r = malloc(sizeof(struct http_request));
+    struct http_response *r = malloc(sizeof(struct http_response));
     r->status_code = "200";
     r->reason_phrase = "OK";
     r->header = NULL;
