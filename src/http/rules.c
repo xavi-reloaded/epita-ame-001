@@ -114,12 +114,12 @@ void check_valid_request(struct http_request *request, struct http_response *res
     // -Malformed requests using CRLF at random positions.
 }
 
-void check_forbidden(char *ressource, struct http_response *response)
+void check_forbidden(char *ressource, char *root, struct http_response *response)
 {
     // 403 Forbidden: Raised when a client tries to access a resource it does not have permission to.
 }
 
-void check_found(char *ressource, struct http_response *response)
+void check_found(char *ressource, char *root, struct http_response *response)
 {
     // 404 Not Found: Raised when a client tries to access a resource that does not exist.
 }

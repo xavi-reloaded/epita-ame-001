@@ -166,7 +166,7 @@ Test(check_found, not_exist)
     cr_assert(strcmp(actual->reason_phrase, expected_reason) == 0, "Actual: %s, Expected: %s", actual->reason_phrase, expected_reason);
 }
 
-void check_found(char *ressource, struct http_response *response)
+void check_found(char *ressource, char *root, struct http_response *response)
 {
     // 404 Not Found: Raised when a client tries to access a resource that does not exist.
 }

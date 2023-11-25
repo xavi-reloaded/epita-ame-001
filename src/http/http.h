@@ -45,8 +45,8 @@ void check_method(char *method, struct http_response *response);
 void check_version(char *version, struct http_response *response);
 int check_headers(struct header *headers, struct config *config);
 void check_valid_request(struct http_request *request, struct http_response *response);
-void check_forbidden(char *ressource, struct http_response *response);
-void check_found(char *ressource, struct http_response *response);
+void check_forbidden(char *ressource, char *root, struct http_response *response);
+void check_found(char *ressource, char *root, struct http_response *response);
 void do_status_line(struct http_request *request, struct http_response *response);
 
 #endif /* !HTTP_H */
